@@ -1,0 +1,63 @@
+---Particpation Statistics ---
+SELECT COUNT(DISTINCT PersonName) AS TotalAthletes, COUNT(DISTINCT Country) AS ParticipatingCountries, COUNT(DISTINCT Discipline) AS TotalDiscipline
+FROM athletes;
+---(There are total 11062 athletes, 206 participating Countries and 46 Discipline)
+
+
+---Total of Males and Females---
+SELECT SUM(Female) AS TotalFemales, SUM(Male) AS TotalMales
+FROM entriesgender
+---(There are total of 5432 Females and 5884 Males Participants)
+
+---Distinct Sports---
+SELECT Discipline,COUNT(DISTINCT Discipline) AS TotalDiscipline
+FROM athletes
+GROUP BY Discipline
+ORDER BY Discipline ;
+
+
+---Top Medal-Winning Countries---
+SELECT TeamCountry, SUM(Gold) AS GoldMedals, SUM(Silver) AS SilverMedals, SUM(Bronze) AS BronzeMedals, SUM(Total) AS TotalMedals
+FROM medals
+GROUP BY TeamCountry
+ORDER BY TotalMedals DESC
+
+---various Events---
+SELECT Event, COUNT(DISTINCT Discipline) AS Discipline
+FROM teams
+GROUP BY Event
+ORDER BY Discipline DESC;
+
+
+---Gender Representation---
+SELECT Discipline, SUM(Female) AS FemaleParticipants, SUM(Male) AS MaleParticipants,
+    ROUND((SUM(Female)/SUM(Total))*100,2) AS FemalePercentage,
+    ROUND((SUM(Male)/SUM(Total))*100,2) AS MalePercentage
+FROM entriesgender
+GROUP BY Discipline
+ORDER BY FemalePercentage DESC;
+
+
+
+----Most Played Discipline---
+---(Athletics has the most participants which is 2068, followed by Swimming(743), then Football(567))
+SELECT Discipline, COUNT(DISTINCT PersonName) AS TotalAthletes
+FROM athletes
+GROUP BY Discipline
+ORDER BY TotalAthletes DESC;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
